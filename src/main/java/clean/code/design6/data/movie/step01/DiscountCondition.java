@@ -4,13 +4,13 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class DiscountCondition {
-    private DiscountConditionType type;
+    private DiscountConditionType type; //할인조건(순번, 기간)
 
-    private int sequence;
+    private int sequence; //순번
 
-    private DayOfWeek dayOfWeek;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private DayOfWeek dayOfWeek; //기간
+    private LocalTime startTime; //기간 시작시간
+    private LocalTime endTime;   //기간 종료시간
 
     public DiscountCondition(int sequence) {
         this(DiscountConditionType.SEQUENCE, sequence, DayOfWeek.of(1), LocalTime.of(0,0), LocalTime.of(0,0));
@@ -66,6 +66,31 @@ public class DiscountCondition {
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public boolean isDiscountable(Screening screening) {
+        if (isDiscountablePeriod(screening)) {
+            return true;
+        }
+        return isDiscountableSequence(screening);
+    }
+
+    private boolean isDiscountablePeriod(Screening screening) {
+        if (type == DiscountConditionType.PERIOD &&
+                dayOfWeek.equals(screening.getWhenScreened().getDayOfWeek()) &&
+                startTime.compareTo(screening.getWhenScreened().toLocalTime()) <= 0 &&
+                endTime.compareTo(screening.getWhenScreened().toLocalTime()) >= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isDiscountableSequence(Screening screening) {
+        return type == DiscountConditionType.SEQUENCE && sequence == screening.getSequence();
+//        if (sequence == screening.getSequence()) {
+//            return true;
+//        }
+//        return false;
     }
 
 }

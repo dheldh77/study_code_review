@@ -34,16 +34,16 @@ public class Main {
 
             //아바타 상영 일시 객체 생성
             List<Screening> avatarScreeningList = Arrays.asList(
-                new Screening(avatar, 1, LocalDateTime.of(2022, 1, 1, 10, 0)),
-                new Screening(avatar, 2, LocalDateTime.of(2022, 1, 1, 12, 0)),
-                new Screening(avatar, 3, LocalDateTime.of(2022, 1, 1, 14, 0)),
-                new Screening(avatar, 4, LocalDateTime.of(2022, 1, 1, 16, 0)),
-                new Screening(avatar, 5, LocalDateTime.of(2022, 1, 1, 18, 0)),
-                new Screening(avatar, 6, LocalDateTime.of(2022, 1, 2, 10, 0)),
-                new Screening(avatar, 7, LocalDateTime.of(2022, 1, 2, 12, 0)),
-                new Screening(avatar, 8, LocalDateTime.of(2022, 1, 2, 14, 0)),
-                new Screening(avatar, 9, LocalDateTime.of(2022, 1, 2, 16, 0)),
-                new Screening(avatar, 10, LocalDateTime.of(2022, 1, 2, 18, 0))
+                    new Screening(avatar, 1, LocalDateTime.of(2022, 1, 1, 10, 0)),
+                    new Screening(avatar, 2, LocalDateTime.of(2022, 1, 1, 12, 0)),
+                    new Screening(avatar, 3, LocalDateTime.of(2022, 1, 1, 14, 0)),
+                    new Screening(avatar, 4, LocalDateTime.of(2022, 1, 1, 16, 0)),
+                    new Screening(avatar, 5, LocalDateTime.of(2022, 1, 1, 18, 0)),
+                    new Screening(avatar, 6, LocalDateTime.of(2022, 1, 2, 10, 0)),
+                    new Screening(avatar, 7, LocalDateTime.of(2022, 1, 2, 12, 0)),
+                    new Screening(avatar, 8, LocalDateTime.of(2022, 1, 2, 14, 0)),
+                    new Screening(avatar, 9, LocalDateTime.of(2022, 1, 2, 16, 0)),
+                    new Screening(avatar, 10, LocalDateTime.of(2022, 1, 2, 18, 0))
             );
 
             //타이타닉 상영 일시 객체 생성

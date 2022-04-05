@@ -13,7 +13,8 @@ public class Movie {
     private Money fee;
     private List<DiscountCondition> discountConditions;
 
-    private MovieType movieType;
+    //    private int movieType; //0,1,2, 논리오류 발생 -> 3,4,5,6
+    private MovieType movieType; //상속, 다형성으로 해결 할 수 있음, 할인정책(금액, 퍼센트, 없음)
     private Money discountAmount;
     private double discountPercent;
 
@@ -78,5 +79,27 @@ public class Movie {
 
     public void setDiscountPercent(double discountPercent) {
         this.discountPercent = discountPercent;
+    }
+
+    public boolean isDiscountable(Screening screening) {
+        //해당 영화가 할인 가능한지 여부 확인
+        //boolean discountable = false;
+
+        //지역 변수는 불필요한 코드임
+        //stream으로 변경 할 수 있음
+        for (DiscountCondition condition : discountConditions) {
+            //할인 조건이 기간인지 확인 한다
+            if (condition.isDiscountable(screening)) {
+                return true;
+            }
+
+            //실수로 변경될 수 있음 : 로직 오류 -> 디버깅으로 오류 찾아, 시간 소요
+            //discountable = false;
+//            if (discountable) {
+//                break;
+//            }
+        }
+//        return discountable;
+        return false;
     }
 }
