@@ -1,8 +1,5 @@
 package clean.code.design6.data.movie.step01;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
-
 //상태 값에 따라 분기되어 처리 -> 상태 패턴, 상속 다형성
 //상태 패턴 -> 최초 생성된 객체의 상태가 종료시까지 유지가 되어여함
 

@@ -3,10 +3,8 @@ package clean.code.design6.data.movie.step01;
 import clean.code.design6.money.Money;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
 
-public class PercentDiscountMovie extends  Movie {
+public class PercentDiscountMovie extends DefaultDiscountMovie {
     private double discountPercent;
 
     public PercentDiscountMovie(String title, Duration runningTime, Money fee, double discountPercent, DiscountCondition... discountConditions) {
