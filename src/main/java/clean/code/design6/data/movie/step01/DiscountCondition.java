@@ -3,94 +3,12 @@ package clean.code.design6.data.movie.step01;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-public class DiscountCondition {
-    private DiscountConditionType type; //할인조건(순번, 기간)
+//상태 값에 따라 분기되어 처리 -> 상태 패턴, 상속 다형성
+//상태 패턴 -> 최초 생성된 객체의 상태가 종료시까지 유지가 되어여함
 
-    private int sequence; //순번
+//실행중 상태 값이 변경되면 안됨
+//실행 중 상태 값을 변경 하여 처리할 때는 전략 패턴을 사용해야 함
 
-    private DayOfWeek dayOfWeek; //기간
-    private LocalTime startTime; //기간 시작시간
-    private LocalTime endTime;   //기간 종료시간
-
-    public DiscountCondition(int sequence) {
-        this(DiscountConditionType.SEQUENCE, sequence, DayOfWeek.of(1), LocalTime.of(0,0), LocalTime.of(0,0));
-    }
-
-    public DiscountCondition(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        this(DiscountConditionType.PERIOD, 0, dayOfWeek, startTime, endTime);
-    }
-
-    public DiscountConditionType getType() {
-        return type;
-    }
-
-    public void setType(DiscountConditionType type) {
-        this.type = type;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
-    }
-
-    private DiscountCondition(DiscountConditionType type, int sequence, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        this.type = type;
-        this.sequence = sequence;
-        this.dayOfWeek = dayOfWeek;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
-    public boolean isDiscountable(Screening screening) {
-        if (isDiscountablePeriod(screening)) {
-            return true;
-        }
-        return isDiscountableSequence(screening);
-    }
-
-    private boolean isDiscountablePeriod(Screening screening) {
-        if (type == DiscountConditionType.PERIOD &&
-                dayOfWeek.equals(screening.getWhenScreened().getDayOfWeek()) &&
-                startTime.compareTo(screening.getWhenScreened().toLocalTime()) <= 0 &&
-                endTime.compareTo(screening.getWhenScreened().toLocalTime()) >= 0) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isDiscountableSequence(Screening screening) {
-        return type == DiscountConditionType.SEQUENCE && sequence == screening.getSequence();
-//        if (sequence == screening.getSequence()) {
-//            return true;
-//        }
-//        return false;
-    }
-
+public interface DiscountCondition {
+    boolean isSatisfiedBy(Screening screening);
 }

@@ -13,24 +13,24 @@ public class Main {
     public static void main(String [] args) {
 
         //상영 순번에 대한 할인 조건 객체 생성
-        DiscountCondition sequenceCondition1 = new DiscountCondition(1);
-        DiscountCondition sequenceCondition2 = new DiscountCondition(2);
-        DiscountCondition sequenceCondition10 = new DiscountCondition(10);
+        DiscountCondition sequenceCondition1 = new SequenceDiscountCondition(1);
+        DiscountCondition sequenceCondition2 = new SequenceDiscountCondition(2);
+        DiscountCondition sequenceCondition10 = new SequenceDiscountCondition(10);
 
         //기간에 대한 할인 조건 객체 생성
-        DiscountCondition periodCondition1 = new DiscountCondition(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(11, 59));
-        DiscountCondition periodCondition2 = new DiscountCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59));
-        DiscountCondition periodCondition3 = new DiscountCondition(DayOfWeek.TUESDAY, LocalTime.of(14, 0), LocalTime.of(14, 59));
-        DiscountCondition periodCondition4 = new DiscountCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59));
+        DiscountCondition periodCondition1 = new PeriodDiscountCondition(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(11, 59));
+        DiscountCondition periodCondition2 = new PeriodDiscountCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59));
+        DiscountCondition periodCondition3 = new PeriodDiscountCondition(DayOfWeek.TUESDAY, LocalTime.of(14, 0), LocalTime.of(14, 59));
+        DiscountCondition periodCondition4 = new PeriodDiscountCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59));
 
         try {
-            Movie avatar = new Movie("아바타", Duration.ofMinutes(120), Money.wons(10000), Money.wons(800), sequenceCondition1, sequenceCondition10, periodCondition1, periodCondition2);
+            Movie avatar = new AmountDiscountMovie("아바타", Duration.ofMinutes(120), Money.wons(10000), Money.wons(800), sequenceCondition1, sequenceCondition10, periodCondition1, periodCondition2);
 
             //10% 비율 할인 정책
-            Movie titanic = new Movie("타이타닉", Duration.ofMinutes(180), Money.wons(11000), 0.1, periodCondition3, sequenceCondition2, periodCondition4 );
+            Movie titanic = new PercentDiscountMovie("타이타닉", Duration.ofMinutes(180), Money.wons(11000), 0.1, periodCondition3, sequenceCondition2, periodCondition4 );
 
             //할인 정책 없음
-            Movie starWars = new Movie("스타워즈", Duration.ofMinutes(210), Money.wons(14000));
+            Movie starWars = new NoneDiscountMovie("스타워즈", Duration.ofMinutes(210), Money.wons(14000));
 
             //아바타 상영 일시 객체 생성
             List<Screening> avatarScreeningList = Arrays.asList(
