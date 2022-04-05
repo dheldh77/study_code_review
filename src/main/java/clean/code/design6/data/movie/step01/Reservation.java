@@ -61,3 +61,4 @@ public class Reservation {
         System.out.println("예약 인원 : " + audienceCount  + "\n");
     }
 }
+

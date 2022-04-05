@@ -18,3 +18,4 @@ public class Customer {
         return new Customer(String.valueOf(getNextId()), name);
     }
 }
+

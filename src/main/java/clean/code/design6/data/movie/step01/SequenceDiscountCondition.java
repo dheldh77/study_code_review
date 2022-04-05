@@ -1,6 +1,6 @@
 package clean.code.design6.data.movie.step01;
 
-public class SequenceDiscountCondition implements DiscountCondition{
+public class SequenceDiscountCondition implements DiscountCondition {
     private int sequence; //순번
 
     public SequenceDiscountCondition(int sequence) {
