@@ -23,14 +23,19 @@ public class Main {
         DiscountCondition periodCondition3 = new PeriodDiscountCondition(DayOfWeek.TUESDAY, LocalTime.of(14, 0), LocalTime.of(14, 59));
         DiscountCondition periodCondition4 = new PeriodDiscountCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(13, 59));
 
+        DiscountPolicy amountDiscountPolicy = new AmountDiscountPolicy(Money.wons(800), sequenceCondition1, sequenceCondition10, periodCondition1, periodCondition2);
+        DiscountPolicy percentDiscountPolicy = new PercentDiscountPolicy(0.1, periodCondition3, sequenceCondition2, periodCondition4 );
+        DiscountPolicy noneDiscountPolicy = new NoneDiscountPolicy();
+
+
         try {
-            Movie avatar = new AmountDiscountMovie("아바타", Duration.ofMinutes(120), Money.wons(10000), Money.wons(800), sequenceCondition1, sequenceCondition10, periodCondition1, periodCondition2);
+            Movie avatar = new Movie("아바타", Duration.ofMinutes(120), Money.wons(10000), amountDiscountPolicy);
 
             //10% 비율 할인 정책
-            Movie titanic = new PercentDiscountMovie("타이타닉", Duration.ofMinutes(180), Money.wons(11000), 0.1, periodCondition3, sequenceCondition2, periodCondition4 );
+            Movie titanic = new Movie("타이타닉", Duration.ofMinutes(180), Money.wons(11000), percentDiscountPolicy);
 
             //할인 정책 없음
-            Movie starWars = new NoneDiscountMovie("스타워즈", Duration.ofMinutes(210), Money.wons(14000));
+            Movie starWars = new Movie("스타워즈", Duration.ofMinutes(210), Money.wons(14000), noneDiscountPolicy);
 
             //아바타 상영 일시 객체 생성
             List<Screening> avatarScreeningList = Arrays.asList(
@@ -101,6 +106,15 @@ public class Main {
             //ReservationAgency 클래스의 정적 예매 메서드를 호출하여 예매한다
             Reservation reserveLeem  = starWarsScreeningList.get(1).reserve(leem, 1);
             reserveLeem.detailOutput();
+
+            //실행중 할인 정책 변경
+            starWars.setDiscountPolicy(amountDiscountPolicy);
+            Customer honggilja = Customer.createCustomer("홍길자");
+
+            //ReservationAgency 클래스의 정적 예매 메서드를 호출하여 예매한다
+            Reservation reserveHonggilja = starWarsScreeningList.get(0).reserve(honggilja, 2);
+            reserveHonggilja.detailOutput();
+
 
         }
         catch (Exception e) {
