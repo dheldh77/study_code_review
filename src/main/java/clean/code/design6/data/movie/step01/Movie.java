@@ -82,24 +82,40 @@ public class Movie {
     }
 
     public boolean isDiscountable(Screening screening) {
-        //해당 영화가 할인 가능한지 여부 확인
-        //boolean discountable = false;
-
-        //지역 변수는 불필요한 코드임
         //stream으로 변경 할 수 있음
-        for (DiscountCondition condition : discountConditions) {
-            //할인 조건이 기간인지 확인 한다
-            if (condition.isDiscountable(screening)) {
-                return true;
-            }
 
-            //실수로 변경될 수 있음 : 로직 오류 -> 디버깅으로 오류 찾아, 시간 소요
-            //discountable = false;
-//            if (discountable) {
-//                break;
-//            }
-        }
-//        return discountable;
-        return false;
+        return discountConditions.stream().anyMatch(condition -> condition.isDiscountable(screening));
     }
+
+    public Money calculateFee(Screening screening) {
+        //해당 영화가 할인 가능한지 여부 확인
+        boolean discountable = isDiscountable(screening);
+
+        Money fee;
+        if (discountable) {
+            //할인 가능하면
+            Money discountAmount = Money.ZERO;
+            //할인 정책에 따른 요금 계산
+            switch(movieType) {
+                case AMOUNT_DISCOUNT:
+                    //금액으로 할인 금액 계산
+                    discountAmount = this.discountAmount;
+                    break;
+                case PERCENT_DISCOUNT:
+                    //퍼센트로 할인 금액 계산
+                    discountAmount = this.fee.times(discountPercent);
+                    break;
+                case NONE_DISCOUNT:
+                    discountAmount = Money.ZERO;
+                    break;
+            }
+            //영화비에서 할인 금액만큼 빼고 예약자수 만큼 곱하여 요금계산 한다
+            fee = this.fee.minus(discountAmount);
+        } else {
+            //영화비를 예약자수 만큼 곱하여 요금계산 한다
+            fee = this.fee;
+        }
+        return fee;
+    }
+
 }

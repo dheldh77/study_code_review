@@ -78,28 +78,28 @@ public class Main {
             Customer hong = Customer.createCustomer("홍길동");
 
             //ReservationAgency 클래스의 정적 예매 메서드를 호출하여 예매한다
-            Reservation reserveHong = ReservationAgency.reserve(avatarScreeningList.get(0), hong, 2);
+            Reservation reserveHong = avatarScreeningList.get(0).reserve(hong, 2);
             reserveHong.detailOutput();
 
             //이순신 객체 생성함
             Customer lee = Customer.createCustomer("이순신");
 
             //ReservationAgency 클래스의 정적 예매 메서드를 호출하여 예매한다
-            Reservation reserveLee= ReservationAgency.reserve(avatarScreeningList.get(1), lee, 2);
+            Reservation reserveLee= avatarScreeningList.get(1).reserve(lee, 2);
             reserveLee.detailOutput();
 
             //장길산 객체 생성함
             Customer jang = Customer.createCustomer("장길산");
 
             //ReservationAgency 클래스의 정적 예매 메서드를 호출하여 예매한다
-            Reservation reserveJang  = ReservationAgency.reserve(titanicScreeningList.get(1), jang, 1);
+            Reservation reserveJang  = titanicScreeningList.get(1).reserve(jang, 1);
             reserveJang.detailOutput();
 
             //장길산 객체 생성함
             Customer leem = Customer.createCustomer("임꺽정");
 
             //ReservationAgency 클래스의 정적 예매 메서드를 호출하여 예매한다
-            Reservation reserveLeem  = ReservationAgency.reserve(starWarsScreeningList.get(1), leem, 1);
+            Reservation reserveLeem  = starWarsScreeningList.get(1).reserve(leem, 1);
             reserveLeem.detailOutput();
 
         }
